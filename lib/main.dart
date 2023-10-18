@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mobile_billing_ps_app/booking.dart';
 import 'package:mobile_billing_ps_app/splash.dart';
+import 'package:mobile_billing_ps_app/about.dart';
 
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //code menampilkan splashscreen yang berdurasi 2 detik
     return FutureBuilder(
         future: Future.delayed(Duration(seconds: 2)),
         builder: (context, snapshot) {
@@ -41,11 +43,57 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
+  //membuat variabel index untuk pengindexan page
+  int _index = 0;
+  //membuat List sebuah page
+  List <Widget> page =[
+  Home(),
+  About(),
+];
+  void _onItemTap(int index) {
+    setState(() {
+      _index = index;
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //code bottom navbar
+      body: Container(
+        color: Color(0xFF202020),
+        child: page[_index],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF813995),
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.white,
+        currentIndex: _index,
+        onTap:_onItemTap,
+        items:  [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: "Home",
+            
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline_rounded),
+            label: "About",
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+//class home untuk page home
+class Home extends StatelessWidget {
+  Home({super.key});
   TextEditingController _room = new TextEditingController();
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               //bagian promo
               Container(
-                margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                margin: EdgeInsets.only(left:30),
                 child: Text(
                   'Ada yang baru nih dari Kami',
                   textAlign: TextAlign.start,
@@ -215,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
               // bagian booking
               Container(
-                margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                margin: EdgeInsets.only(left:30),
                 child: Text(
                   'Booking sekarang',
                   style: TextStyle(

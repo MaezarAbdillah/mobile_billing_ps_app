@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SuccessPage extends StatefulWidget {
   String nama,jam,hari;
 
@@ -13,18 +14,21 @@ class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text(
-            'Nama : ${widget.nama}'
-          ),
-          Text(
-            'Booking Berapa Jam : ${widget.jam}',
-          ),
-          Text(
-            'Nama : ${widget.hari}',
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Nama : ${widget.nama}'
+            ),
+            Text(
+              'Booking Berapa Jam : ${widget.jam}',
+            ),
+            Text(
+              'Main Hari Apa : ${widget.hari}',
+            ),
+          ],
+        ),
       ),
     );
   }
