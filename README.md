@@ -1,2 +1,2 @@
-# mobile_billing_ps_app
+# Project Posttest Maezar
  Praktikum Pemrograman Piranti Bergerak
