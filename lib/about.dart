@@ -7,7 +7,6 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF202020),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 50),
@@ -24,7 +23,6 @@ class About extends StatelessWidget {
                     fontFamily: 'Inder',
                     fontWeight: FontWeight.bold,
                     fontSize: 40,
-                    color: Colors.white,
                   ),
               ),
               Text(
@@ -32,7 +30,6 @@ class About extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Inder',
                   fontSize: 25,
-                  color: Colors.white,
                 ),
               ),
               Text(
@@ -40,7 +37,6 @@ class About extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Inder',
                   fontSize: 14,
-                  color: Colors.white,
                 ),
               ),
             ],

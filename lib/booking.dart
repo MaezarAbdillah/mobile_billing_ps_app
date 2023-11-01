@@ -23,9 +23,15 @@ class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor:Colors.blue,),),
+        
+      ),
+      darkTheme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor:Color(0xFF813995),),),
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color(0xFF202020),
         body: Column(
           children: [
             Container(
@@ -307,9 +313,7 @@ class _BookingPageState extends State<BookingPage> {
                                   });
                             });
                           }),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF813995),
-                          ),
+                          
                           child: Text(
                             'BOOK NOW',
                             style: TextStyle(

@@ -33,7 +33,6 @@ class _ListGameState extends State<ListGame> {
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xFF202020),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: ListView(
@@ -49,8 +48,7 @@ class _ListGameState extends State<ListGame> {
                       "List Game Rental PSku",
                       style: TextStyle(
                           fontFamily: 'Jomhuria',
-                          fontSize: 35,
-                          color: Colors.white),
+                          fontSize: 35),
                     ),
                   ),
                   Expanded(

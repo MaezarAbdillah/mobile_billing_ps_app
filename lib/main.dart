@@ -1,7 +1,7 @@
-
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_billing_ps_app/booking.dart';
+import 'package:mobile_billing_ps_app/introduction_page.dart';
 import 'package:mobile_billing_ps_app/list_game.dart';
 import 'package:mobile_billing_ps_app/splash.dart';
 import 'package:mobile_billing_ps_app/about.dart';
@@ -15,6 +15,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme lightScheme = ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+    );
+    ColorScheme darkScheme = ColorScheme.fromSeed(
+      seedColor: Color(0XFF813995),
+      brightness: Brightness.dark,
+    );
     //code menampilkan splashscreen yang berdurasi 2 detik
     return FutureBuilder(
         future: Future.delayed(Duration(seconds: 2)),
@@ -23,9 +30,40 @@ class MyApp extends StatelessWidget {
             return SplashScreen();
           } else {
             return MaterialApp(
+              //membuat tema dark dan light
+              theme: ThemeData(
+                brightness: Brightness.light,
+                colorScheme: lightScheme,
+                textTheme: GoogleFonts.jomhuriaTextTheme(
+                  TextTheme(
+                    labelLarge: TextStyle(fontSize: 25),
+                    bodyLarge: TextStyle(color: Colors.black),
+                    bodyMedium: TextStyle(color: Colors.black),
+                    bodySmall: TextStyle(color: Colors.black),
+                  ),
+                ),
+                scaffoldBackgroundColor: Colors.orange[200],
+                bottomNavigationBarTheme:
+                    BottomNavigationBarThemeData(backgroundColor: Colors.blue),
+              ),
+              darkTheme: ThemeData(
+                colorScheme: darkScheme,
+
+                textTheme: GoogleFonts.jomhuriaTextTheme(TextTheme(
+                    
+                    labelLarge: TextStyle(fontSize: 25),
+                    displaySmall: TextStyle(color: Colors.white),
+                    displayLarge: TextStyle(color: Colors.white),
+                    displayMedium: TextStyle(color: Colors.white))),
+                brightness: Brightness.dark,
+                scaffoldBackgroundColor: Color(0xFF202020),
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                    backgroundColor: Color(0XFF813995)),
+              ),
+              themeMode: ThemeMode.light,
               debugShowCheckedModeBanner: false,
               title: 'Rental PSku',
-              home: const MyHomePage(title: 'Rental PSku'),
+              home: Intro(),
             );
           }
         });
@@ -51,7 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Home(),
     ListGame(),
     About(),
-    
   ];
   void _onItemTap(int index) {
     setState(() {
@@ -64,16 +101,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       //code bottom navbar
       body: Container(
-        color: Color(0xFF202020),
         child: page[_index],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFF813995),
+        // backgroundColor: Color(0xFF813995),
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.white,
         currentIndex: _index,
         onTap: _onItemTap,
+        
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -109,7 +146,6 @@ class _HomeState extends State<Home> {
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xFF202020),
       body: ListView(
         children: [
           Column(
@@ -121,10 +157,7 @@ class _HomeState extends State<Home> {
                 child: Text(
                   'Selamat Datang, $nama !',
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontFamily: 'Jomhuria',
-                      fontSize: 30,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: 30),
                 ),
               ),
               //bagian promo
@@ -133,10 +166,7 @@ class _HomeState extends State<Home> {
                 child: Text(
                   'Ada yang baru nih dari Kami',
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontFamily: 'Jomhuria',
-                      fontSize: 25,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: 25),
                 ),
               ),
               Container(
@@ -176,8 +206,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                     fontFamily: 'Inder',
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
+                                    fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -192,7 +221,8 @@ class _HomeState extends State<Home> {
                               height: 90,
                               child: Material(
                                 child: Ink.image(
-                                  image: AssetImage("images/gambar-ps4-hitam.jpg"),
+                                  image:
+                                      AssetImage("images/gambar-ps4-hitam.jpg"),
                                   fit: BoxFit.cover,
                                   child: InkWell(
                                     onTap: () {
@@ -211,8 +241,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                     fontFamily: 'Inder',
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
+                                    fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -232,7 +261,8 @@ class _HomeState extends State<Home> {
                               height: 90,
                               child: Material(
                                 child: Ink.image(
-                                  image: AssetImage("images/gambar-ps4-hitam.jpg"),
+                                  image:
+                                      AssetImage("images/gambar-ps4-hitam.jpg"),
                                   fit: BoxFit.cover,
                                   child: InkWell(
                                     onTap: () {
@@ -251,8 +281,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                     fontFamily: 'Inder',
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
+                                    fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -286,8 +315,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                     fontFamily: 'Inder',
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
+                                    fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -304,9 +332,7 @@ class _HomeState extends State<Home> {
                 child: Text(
                   'Booking sekarang',
                   style: TextStyle(
-                    fontFamily: 'Jomhuria',
                     fontSize: 25,
-                    color: Colors.white,
                   ),
                 ),
               ),
@@ -355,11 +381,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Room VVIP 1',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -403,11 +427,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Room VVIP 2',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -451,11 +473,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Room VVIP 3',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -499,11 +519,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Reguler 1',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -557,11 +575,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Reguler 2',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -605,11 +621,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Reguler 3',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -653,11 +667,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Reguler 4',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -701,11 +713,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Reguler 5',
                               style: TextStyle(
-                                fontFamily: 'Inder',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                                  fontFamily: 'Inder',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
