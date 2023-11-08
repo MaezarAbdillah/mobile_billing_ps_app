@@ -10,6 +10,8 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return IntroductionScreen(
+      showBackButton: true,
+      back: Text('Kembali'),
       next: Text("Selanjutnya"),
       done: Text("Selesai"),
       onDone: () {

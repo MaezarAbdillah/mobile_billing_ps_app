@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_billing_ps_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -9,25 +10,8 @@ class SplashScreen extends StatelessWidget {
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
     return MaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.orange[200],
-        textTheme: GoogleFonts.jomhuriaTextTheme(
-          TextTheme(
-            displayMedium: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Color(0xFF202020),
-        textTheme: GoogleFonts.jomhuriaTextTheme(
-          TextTheme(
-            displayMedium: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-      themeMode: ThemeMode.light,
+      theme: Provider.of<temague>(context).display(),
+      themeMode: Provider.of<ThemeModeData>(context).themeMode,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(

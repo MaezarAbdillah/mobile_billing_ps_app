@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_billing_ps_app/booking.dart';
 import 'package:mobile_billing_ps_app/introduction_page.dart';
 import 'package:mobile_billing_ps_app/list_game.dart';
+import 'package:mobile_billing_ps_app/setting_page.dart';
 import 'package:mobile_billing_ps_app/splash.dart';
 import 'package:mobile_billing_ps_app/about.dart';
+import 'package:mobile_billing_ps_app/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,105 +14,78 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    ColorScheme lightScheme = ColorScheme.fromSeed(
-      seedColor: Colors.blue,
-    );
-    ColorScheme darkScheme = ColorScheme.fromSeed(
-      seedColor: Color(0XFF813995),
-      brightness: Brightness.dark,
-    );
     //code menampilkan splashscreen yang berdurasi 2 detik
-    return FutureBuilder(
-        future: Future.delayed(Duration(seconds: 2)),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return SplashScreen();
-          } else {
-            return MaterialApp(
-              //membuat tema dark dan light
-              theme: ThemeData(
-                brightness: Brightness.light,
-                colorScheme: lightScheme,
-                textTheme: GoogleFonts.jomhuriaTextTheme(
-                  TextTheme(
-                    labelLarge: TextStyle(fontSize: 25),
-                    bodyLarge: TextStyle(color: Colors.black),
-                    bodyMedium: TextStyle(color: Colors.black),
-                    bodySmall: TextStyle(color: Colors.black),
-                  ),
-                ),
-                scaffoldBackgroundColor: Colors.orange[200],
-                bottomNavigationBarTheme:
-                    BottomNavigationBarThemeData(backgroundColor: Colors.blue),
-              ),
-              darkTheme: ThemeData(
-                colorScheme: darkScheme,
-
-                textTheme: GoogleFonts.jomhuriaTextTheme(TextTheme(
-                    
-                    labelLarge: TextStyle(fontSize: 25),
-                    displaySmall: TextStyle(color: Colors.white),
-                    displayLarge: TextStyle(color: Colors.white),
-                    displayMedium: TextStyle(color: Colors.white))),
-                brightness: Brightness.dark,
-                scaffoldBackgroundColor: Color(0xFF202020),
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                    backgroundColor: Color(0XFF813995)),
-              ),
-              themeMode: ThemeMode.light,
-              debugShowCheckedModeBanner: false,
-              title: 'Rental PSku',
-              home: Intro(),
-            );
-          }
-        });
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context)=> ThemeModeData()),
+        ChangeNotifierProvider(create: (context)=> temague()),
+        ChangeNotifierProvider(create: (context)=> Pindah()),
+      ],
+      child: FutureBuilder(
+          future: Future.delayed(Duration(seconds: 2)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SplashScreen();
+            } else {
+              return MaterialApp(
+                //membuat tema dark dan light
+                theme: Provider.of<temague>(context).display(),
+                darkTheme: Provider.of<temague>(context).display(),
+                themeMode: Provider.of<ThemeModeData>(context).themeMode,
+                debugShowCheckedModeBanner: false,
+                title: 'Rental PSku',
+                home: Intro(),
+              );
+            }
+          }),
+    );
   }
 }
 
 String nama = 'Maezar';
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class Pindah extends ChangeNotifier{
   //membuat variabel index untuk pengindexan page
-  int _index = 0;
+  int index = 0;
   //membuat List sebuah page
   List<Widget> page = [
     Home(),
     ListGame(),
     About(),
+    SettingPage(),
   ];
-  void _onItemTap(int index) {
-    setState(() {
-      _index = index;
-    });
+  void changeIndex(int i) {
+    index = i;
+    notifyListeners();
   }
+
+  Widget display() {
+    return page[index];
+  }
+}
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //code bottom navbar
       body: Container(
-        child: page[_index],
+        child: Provider.of<Pindah>(context).display(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         // backgroundColor: Color(0xFF813995),
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.white,
-        currentIndex: _index,
-        onTap: _onItemTap,
-        
+        currentIndex: Provider.of<Pindah>(context).index,
+        onTap:(value){
+          Provider.of<Pindah>(context, listen: false).changeIndex(value);
+        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -123,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline_rounded),
             label: "About",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: "Setting",
           ),
         ],
       ),
